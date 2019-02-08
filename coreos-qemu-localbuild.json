@@ -36,7 +36,7 @@
       "ssh_port": 22,
       "ssh_wait_timeout": "40m",
       "ssh_username": "core",
-      "ssh_key_path": "files/vagrant",
+      "ssh_private_key_file": "files/vagrant",
       "shutdown_command": "sudo -S shutdown -P now",
       "output_directory": "builds/coreos-{{user `coreos_channel`}}-{{user `coreos_version`}}-qemu"
     }

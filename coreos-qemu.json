@@ -38,7 +38,7 @@
       "ssh_port": 22,
       "ssh_wait_timeout": "40m",
       "ssh_username": "core",
-      "ssh_key_path": "files/vagrant",
+      "ssh_private_key_file": "files/vagrant",
       "shutdown_command": "sudo -S shutdown -P now",
       "output_directory": "builds/coreos-{{user `coreos_channel`}}-{{user `coreos_version`}}-qemu"
     }
@@ -70,14 +70,10 @@
         ]
       },
       {
-        "type": "atlas",
-        "token": "{{user `atlas_token`}}",
-        "artifact": "{{user `atlas_username`}}/coreos-{{user `coreos_channel`}}",
-        "artifact_type": "vagrant.box",
-        "metadata": {
-          "provider": "libvirt",
-          "version": "{{user `coreos_version`}}"
-        }
+        "type": "vagrant-cloud",
+        "access_token": "{{user `cloud_token`}}",
+        "box_tag": "{{user `atlas_username`}}/coreos-{{user `coreos_channel`}}",
+        "version": "{{user `coreos_version`}}"
       }
     ]
   ],
