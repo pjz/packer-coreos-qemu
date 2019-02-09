@@ -1,8 +1,8 @@
 {
   "variables": {
     "coreos_channel": "stable",
-    "coreos_version": "766.0.0",
-    "install_headless": "false",
+    "coreos_version": "",
+    "install_headless": "true",
     "install_target": "/dev/vda",
     "disk_size": "40960",
     "memory": "1024M",
@@ -13,7 +13,7 @@
   [
     {
       "type": "qemu",
-      "iso_url": "http://github.com/ivandavidov/minimal/releases/download/28-Jan-2018/minimal_linux_live_28-Jan-2018_64-bit_bios.iso",
+      "iso_url": "files/TinyCoreLinux-v10.x.iso",
       "iso_checksum_type": "none",
       "iso_checksum": "",
       "headless": "{{user `install_headless`}}",
@@ -28,13 +28,18 @@
       [
         "<enter>",
         "<enter>",
-        "wget https://raw.github.com/coreos/init/master/bin/coreos-install<enter>",
-        "chmod a+x coreos-install<enter>",
+	"<wait10>",
+        "<enter>",
+	"tce-load -wi openssl bash util-linux coreutils gnupg<enter>",
+	"sudo ln -s /usr/local/bin/gpg2 /usr/local/bin/gpg<enter>",
+	"wget http://raw.github.com/coreos/init/master/bin/coreos-install<enter>",
+	"chmod a+x ./coreos-install<enter>",
         "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.yml<enter>",
-        "coreos-install -d {{user `install_target`}} -C {{user `coreos_channel`}} -c install.yml<enter>",
-        "reboot<enter>"
+        "sudo ./coreos-install -d {{user `install_target`}} -C {{user `coreos_channel`}} -c install.yml<enter>",
+	"<wait10>",
+        "sudo reboot<enter>"
       ],
-      "boot_wait": "45s",
+      "boot_wait": "2s",
       "ssh_port": 22,
       "ssh_wait_timeout": "40m",
       "ssh_username": "core",
