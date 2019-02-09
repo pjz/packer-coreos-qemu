@@ -12,8 +12,8 @@ default:
 
 
 CHANNEL ?= stable
-TOKEN =? faketoken
-USERNAME =? fakeuser
+TOKEN ?= faketoken
+USERNAME ?= fakeuser
 
 CLOUD_ARGS = -var 'cloud_token=$(TOKEN)' -var 'cloud_username=$(USERNAME)'
 
