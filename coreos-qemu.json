@@ -15,7 +15,6 @@
       "type": "qemu",
       "iso_url": "files/TinyCoreLinux-v10.x.iso",
       "iso_checksum_type": "none",
-      "iso_checksum": "",
       "headless": "{{user `install_headless`}}",
       "http_directory": "files",
       "disk_size": "{{user `disk_size`}}",
@@ -35,7 +34,7 @@
 	"wget http://raw.github.com/coreos/init/master/bin/coreos-install<enter>",
 	"chmod a+x ./coreos-install<enter>",
         "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.yml<enter>",
-        "sudo ./coreos-install -d {{user `install_target`}} -C {{user `coreos_channel`}} -c install.yml<enter>",
+        "sudo ./coreos-install -d {{user `install_target`}} -C {{user `coreos_channel`}} -V {{user `coreos_version`}} -c install.yml<enter>",
 	"<wait10>",
         "sudo reboot<enter>"
       ],

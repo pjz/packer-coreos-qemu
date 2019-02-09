@@ -20,7 +20,6 @@ CLOUD_ARGS = -var 'cloud_token=$(TOKEN)' -var 'cloud_username=$(USERNAME)'
 CCUR = ./coreos_current.sh $(CHANNEL)
 CURRENT_ARGS = -var 'coreos_channel=$(CHANNEL)' 
 CURRENT_ARGS += -var "coreos_version=`$(CCUR) version`" 
-CURRENT_ARGS += -var "iso_checksum=`$(CCUR) digest`"
 
 .PHONY: cloud
 cloud:
