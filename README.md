@@ -47,7 +47,19 @@ If you do not wish to push the artifact to cloud, use the `coreos-qemu-localbuil
 
 By default, the Packer [QEMU builder](https://www.packer.io/docs/builders/qemu.html) uses "virtio" as the disk interface, which results in a target device of ```/dev/vda```. If for some reason you need to install CoreOS to a different device, it can be overriden using the ```install_target``` variable.
 
+### Output
 Boxes, once created, show up in the `output/` directory.
+
+### Makefile.local
+
+Makefile.local, if it exists, is included by the main Makefile. 
+If you're doing several builds, it's handy to do:
+```
+echo "USERNAME=myusername" >Makefile.local
+echo "TOKEN=mytoken" >>Makefile.local
+```
+
+to keep from having to specify those variables on the commandline every time.
 
 ##Troubleshooting
 
