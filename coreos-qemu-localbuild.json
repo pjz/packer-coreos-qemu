@@ -1,6 +1,6 @@
 {
   "variables": {
-    "coreos_channel": "alpha",
+    "coreos_channel": "stable",
     "coreos_version": "766.0.0",
     "iso_checksum": "e8da63e79906ce70bfdbe575349d42b9",
     "iso_checksum_type": "md5",
