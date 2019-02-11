@@ -25,9 +25,15 @@ CURRENT_ARGS += -var "coreos_version=`$(CCUR) version`"
 cloud:
 	packer build $(CLOUD_ARGS) $(CURRENT_ARGS) coreos-qemu.json
 
+/tmp/coreos-qemu-local.json: coreos-qemu.json
+	# use some python to nuke the 'vagrant-cloud' and 'push' sections
+	cat coreos-qemu.json | \
+	python -c 'import sys,json; j=json.load(sys.stdin); del j["push"];  pp="post-processors"; j[pp][0]=list(i for i in j[pp][0] if i["type"] != "vagrant-cloud") ; print(json.dumps(j, indent=2))' | \
+	cat > $@
+
 .PHONY: local
-local:
-	packer build $(CLOUD_ARGS) $(CURRENT_ARGS) -except=vagrant-cloud,push coreos-qemu.json
+local: /tmp/coreos-qemu-local.json
+	packer build $(CLOUD_ARGS) $(CURRENT_ARGS) -except=vagrant-cloud,push $<
 
 .PHONY: clean veryclean
 clean:
