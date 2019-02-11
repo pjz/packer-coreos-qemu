@@ -2,7 +2,7 @@
   "variables": {
     "coreos_channel": "stable",
     "coreos_version": "",
-    "install_headless": "false",
+    "install_headless": "true",
     "install_target": "/dev/vda",
     "disk_size": "40960",
     "memory": "1024M",

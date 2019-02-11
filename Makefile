@@ -14,16 +14,18 @@ default:
 CHANNEL ?= stable
 TOKEN ?= faketoken
 USERNAME ?= fakeuser
+HEADLESS ?= true
 
-CLOUD_ARGS = -var 'cloud_token=$(TOKEN)' -var 'cloud_username=$(USERNAME)'
+PACKER_ARGS = -var 'cloud_token=$(TOKEN)' -var 'cloud_username=$(USERNAME)'
+PACKER_ARGS += -var 'install_headless=$(HEADLESS)`
 
 CCUR = ./coreos_current.sh $(CHANNEL)
-CURRENT_ARGS = -var 'coreos_channel=$(CHANNEL)' 
-CURRENT_ARGS += -var "coreos_version=`$(CCUR) version`" 
+PACKER_ARGS += -var 'coreos_channel=$(CHANNEL)' 
+PACKER_ARGS += -var "coreos_version=`$(CCUR) version`" 
 
 .PHONY: cloud
 cloud:
-	packer build $(CLOUD_ARGS) $(CURRENT_ARGS) coreos-qemu.json
+	packer build $(PACKER_ARGS) coreos-qemu.json
 
 /tmp/coreos-qemu-local.json: coreos-qemu.json
 	# use some python to nuke the 'vagrant-cloud' and 'push' sections
@@ -33,7 +35,7 @@ cloud:
 
 .PHONY: local
 local: /tmp/coreos-qemu-local.json
-	packer build $(CLOUD_ARGS) $(CURRENT_ARGS) -except=vagrant-cloud,push $<
+	packer build $(PACKER_ARGS) -except=vagrant-cloud,push $<
 
 .PHONY: clean veryclean
 clean:

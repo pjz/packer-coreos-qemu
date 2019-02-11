@@ -37,13 +37,13 @@ Also see [Vagrantfile](#vagrantfile) for details of overriding the Vagrant confi
 
 To build a Vagrant box using the default CoreOS channel and version, run the following, substituting your [Vagrant Cloud](https://app.vagrantup.com/) token and username:
 
-```make cloud_cloud USERNAME=myusername TOKEN=mytoken CHANNEL=stable```
+```make cloud USERNAME=myusername TOKEN=mytoken```
 
-If you would like to build a box for a different channel, substitute those variables with the desired values as well. For example:
+If you would like to build a box for a different channel, you can specify the CHANNEL variable - it defaults to 'stable'.
 
 ```make cloud USERNAME=myusername TOKEN=mytoken CHANNEL=alpha```
 
-If you do not wish to push the artifact to cloud, use the `coreos-qemu-localbuild.json` file instead.
+If you do not wish to push the artifact to cloud, use `make local` instead.
 
 By default, the Packer [QEMU builder](https://www.packer.io/docs/builders/qemu.html) uses "virtio" as the disk interface, which results in a target device of ```/dev/vda```. If for some reason you need to install CoreOS to a different device, it can be overriden using the ```install_target``` variable.
 
@@ -63,7 +63,7 @@ to keep from having to specify those variables on the commandline every time.
 
 ##Troubleshooting
 
-If the Packer build is failing and the reason why is not obvious, run the build with ```-var 'install_headless=false'```. This will allow you to observe the process using VNC and should give you an indication of what's gone wrong.
+If the Packer build is failing and the reason why is not obvious, run the build with ```HEADLESS=false```. This will allow you to observe the process using VNC and should give you an indication of what's gone wrong.
 
 ##Vagrantfile
 
