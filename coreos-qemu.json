@@ -2,7 +2,7 @@
   "variables": {
     "coreos_channel": "stable",
     "coreos_version": "",
-    "install_headless": "true",
+    "install_headless": "false",
     "install_target": "/dev/vda",
     "disk_size": "40960",
     "memory": "1024M",
@@ -29,14 +29,8 @@
         "<enter>",
 	"<wait10>",
         "<enter>",
-	"tce-load -wi openssl bash util-linux coreutils gnupg<enter>",
-	"sudo ln -s /usr/local/bin/gpg2 /usr/local/bin/gpg<enter>",
-	"wget http://raw.github.com/coreos/init/master/bin/coreos-install<enter>",
-	"chmod a+x ./coreos-install<enter>",
-        "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/install.yml<enter>",
-        "sudo ./coreos-install -d {{user `install_target`}} -C {{user `coreos_channel`}} -V {{user `coreos_version`}} -c install.yml<enter>",
-	"<wait10>",
-        "sudo reboot<enter>"
+        "wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/tcl-build-coreos.sh<enter>",
+	"sh ./tcl-build-coreos.sh {{ .HTTPIP }} {{ .HTTPPort }} {{user `install_target`}} {{user `coreos_channel`}} {{user `coreos_version`}}<enter>"
       ],
       "boot_wait": "2s",
       "ssh_port": 22,
