@@ -17,10 +17,10 @@ USERNAME ?= fakeuser
 HEADLESS ?= true
 
 PACKER_ARGS = -var 'cloud_token=$(TOKEN)' -var 'cloud_username=$(USERNAME)'
-PACKER_ARGS += -var 'install_headless=$(HEADLESS)`
+PACKER_ARGS += -var 'install_headless=$(HEADLESS)'
 
 CCUR = ./coreos_current.sh $(CHANNEL)
-PACKER_ARGS += -var 'coreos_channel=$(CHANNEL)' 
+PACKER_ARGS += -var 'coreos_channel=$(CHANNEL)'
 PACKER_ARGS += -var "coreos_version=`$(CCUR) version`" 
 
 .PHONY: cloud
